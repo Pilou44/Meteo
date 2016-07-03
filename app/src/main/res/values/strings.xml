@@ -1,4 +1,6 @@
 <resources>
+    <string name="openmap_key" translatable="false">c124d1334d373e585a512bc6edf50f77</string>
+    <string name="openmap_base_url" translatable="false">http://api.openweathermap.org/data/2.5/weather?</string>
     <string name="app_name">Meteo</string>
     <string name="action_settings">Settings</string>
 </resources>
