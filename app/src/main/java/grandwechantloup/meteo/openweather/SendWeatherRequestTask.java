@@ -1,4 +1,4 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.openweather;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -13,7 +13,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
+
+import grandwechantloup.meteo.R;
 
 public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> {
     public static final int FROM_LATLNG = 0;

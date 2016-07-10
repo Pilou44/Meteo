@@ -2,10 +2,12 @@ package grandwechantloup.meteo;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,17 +15,26 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
-public class MainActivity extends AppCompatActivity implements SendWeatherRequestListener {
+import java.util.concurrent.atomic.AtomicInteger;
+
+import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
+import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
+import grandwechantloup.meteo.openweather.WeatherConditions;
+
+public class MainActivity extends AppCompatActivity implements SendWeatherRequestListener, View.OnClickListener {
 
     private static final String TAG = MainActivity.class.getSimpleName();
+    private Handler mHandler;
+    private ImageView mBackgroundLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +51,15 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
                         .setAction("Action", null).show();
             }
         });
+
+        mBackgroundLayout = (ImageView) findViewById(R.id.background);
+        Button head = (Button) findViewById(R.id.head);
+        Button body = (Button) findViewById(R.id.body);
+
+        head.setOnClickListener(this);
+        body.setOnClickListener(this);
+
+        mHandler = new Handler();
     }
 
     @Override
@@ -119,14 +139,67 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
 
     @Override
     public void onResult(JSONObject json) {
+        final AtomicInteger drawable = new AtomicInteger(0);
         try {
-            JSONObject weather = json.getJSONObject("weather");
-            String main = weather.getString("main");
-            String description = weather.getString("description");
-            String icon = weather.getString("icon");
+            JSONArray weather = json.getJSONArray("weather");
+            JSONObject object = weather.getJSONObject(0);
+            String id = object.getString("id");
+            String main = object.getString("main");
+            String description = object.getString("description");
+            String icon = object.getString("icon");
             Log.i(TAG, main + ", " + description + ", " + icon);
-        } catch (JSONException e) {
+
+            if (id.startsWith(WeatherConditions.WEATHER_CONDITION_CLEAR)) {
+                drawable.set(R.drawable.clear_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_THUNDERSTORM)) {
+                drawable.set(R.drawable.thunderstorm_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_DRIZZLE)) {
+                drawable.set(R.drawable.drizzle_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_RAIN)) {
+                drawable.set(R.drawable.rain_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_SNOW)) {
+                drawable.set(R.drawable.snow_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_ATMOSPHERE)) {
+                drawable.set(R.drawable.fog_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_CLOUDS)) {
+                drawable.set(R.drawable.clouds_600);
+            } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_EXTREME)) {
+                drawable.set(R.drawable.extreme_600);
+            }
+
+        } catch (Exception e) {
             e.printStackTrace();
+        }
+        finally {
+            if (drawable.get() != 0) {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(drawable.get()));
+                    }
+                });
+            } else {
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        mBackgroundLayout.setImageDrawable(null);
+                    }
+                });
+            }
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = null;
+        switch (view.getId()) {
+            case R.id.head:
+                break;
+            case R.id.body:
+                break;
+        }
+        if (intent != null) {
+            startActivity(intent);
         }
     }
 }

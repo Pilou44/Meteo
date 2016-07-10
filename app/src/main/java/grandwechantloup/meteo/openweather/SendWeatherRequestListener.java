@@ -1,4 +1,4 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.openweather;
 
 import org.json.JSONObject;
 
