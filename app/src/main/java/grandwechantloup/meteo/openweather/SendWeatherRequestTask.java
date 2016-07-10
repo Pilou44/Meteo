@@ -18,6 +18,11 @@ import grandwechantloup.meteo.R;
 
 public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> {
     public static final int FROM_LATLNG = 0;
+    public static final int FROM_CITY_NAME = 1;
+
+    public static final int CURRENT_WEATHER = 0;
+    public static final int FORECAST = 1;
+
     private static final String TAG = SendWeatherRequestTask.class.getSimpleName();
     private final Context mContext;
     private final SendWeatherRequestListener mListener;
@@ -29,20 +34,32 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
 
     @Override
     protected JSONObject doInBackground(Object... params) {
-        int type = (int)params[0];
-        String search = "";
-        switch (type) {
-            case FROM_LATLNG:
-                double latitude = (double) params[1];
-                double longitude = (double) params[2];
-                search = "lat=" + latitude + "&lon=" + longitude;
-                break;
-        }
+        int when = (int)params[0];
+        int type = (int)params[1];
         JSONObject mainObject = null;
         try {
-            search += "&appid=" + mContext.getString(R.string.openmap_key);
-            //String searchStr = URLEncoder.encode(search, "utf-8");
-            String urlString = mContext.getString(R.string.openmap_base_url) + search;
+            String urlString = mContext.getString(R.string.openmap_base_url);
+
+            switch (when) {
+                case CURRENT_WEATHER:
+                    urlString += mContext.getString(R.string.openmap_current_weather);
+                    break;
+                case FORECAST:
+                    urlString += mContext.getString(R.string.openmap_forecast);
+                    break;
+            }
+
+            switch (type) {
+                case FROM_LATLNG:
+                    urlString += "lat=" + params[2] + "&lon=" + params[3];
+                    break;
+                case FROM_CITY_NAME:
+                    urlString += "q=" + params[2];
+                    break;
+            }
+
+            urlString += "&units=metric";
+            urlString += "&appid=" + mContext.getString(R.string.openmap_key);
 
             Log.i(TAG, "URL: " + urlString);
 

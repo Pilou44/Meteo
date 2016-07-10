@@ -131,7 +131,7 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
             }
 
             SendWeatherRequestTask task = new SendWeatherRequestTask(this, this);
-            task.execute(SendWeatherRequestTask.FROM_LATLNG, latitude, longitude);
+            task.execute(SendWeatherRequestTask.CURRENT_WEATHER, SendWeatherRequestTask.FROM_LATLNG, latitude, longitude);
         } catch (SecurityException e){
             Log.e(TAG, "Permission denied");
         }
@@ -196,6 +196,7 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
             case R.id.head:
                 break;
             case R.id.body:
+                intent = new Intent(this, DressTodayActivity.class);
                 break;
         }
         if (intent != null) {
