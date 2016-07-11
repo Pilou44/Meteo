@@ -114,7 +114,10 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
         LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         try {
             Location gpsLocation = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            long gpsTime = gpsLocation.getTime();
+            long gpsTime = 0;
+            if (gpsLocation != null) {
+                gpsTime = gpsLocation.getTime();
+            }
 
             Location networkLocation = locManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             long networkTime = networkLocation.getTime();
