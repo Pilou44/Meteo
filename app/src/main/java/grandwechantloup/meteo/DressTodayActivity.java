@@ -8,6 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -33,6 +38,21 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
     private Handler mHandler;
     private int mStartTime;
     private int mStopTime;
+    private ImageLoader mImageLoader;
+    private ImageView mImage00;
+    private ImageView mImage01;
+    private ImageView mImage02;
+    private ImageView mImage03;
+    private ImageView mImage10;
+    private ImageView mImage11;
+    private ImageView mImage12;
+    private ImageView mImage13;
+    private TextView mTempMaxView;
+    private TextView mTempMinView;
+    private TextView mTimeView;
+    private TextView mTitle;
+    private String mWork;
+    private String mHome;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +76,27 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
             mIcons[i] = "";
         }
 
+        mImage00 = (ImageView) findViewById(R.id.image_0_0);
+        mImage01 = (ImageView) findViewById(R.id.image_0_1);
+        mImage02 = (ImageView) findViewById(R.id.image_0_2);
+        mImage03 = (ImageView) findViewById(R.id.image_0_3);
+        mImage10 = (ImageView) findViewById(R.id.image_1_0);
+        mImage11 = (ImageView) findViewById(R.id.image_1_1);
+        mImage12 = (ImageView) findViewById(R.id.image_1_2);
+        mImage13 = (ImageView) findViewById(R.id.image_1_3);
+
+        mTempMinView = (TextView) findViewById(R.id.temp_min);
+        mTempMaxView = (TextView) findViewById(R.id.temp_max);
+
+        mTimeView = (TextView) findViewById(R.id.time);
+
+        mTitle = (TextView) findViewById(R.id.title);
+
         mHandler = new Handler();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(this).build();
+        mImageLoader = ImageLoader.getInstance();
+        mImageLoader.init(config);
     }
 
     @Override
@@ -65,8 +105,16 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
         String homeLocation = PreferenceSingleton.getInstance().getHomeLocation(this);
         String workLocation = PreferenceSingleton.getInstance().getWorkLocation(this);
 
+        mIcons = new String[NB_MEASURES *2];
+        for (int i = 0 ; i < NB_MEASURES *2 ; i++){
+            mIcons[i] = "";
+        }
+
         mMinTemp = Double.MAX_VALUE;
         mMaxTemp = Double.MIN_VALUE;
+
+        mHome = "";
+        mWork = "";
 
         SendWeatherRequestTask homeTask = new SendWeatherRequestTask(this, this);
         homeTask.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, homeLocation);
@@ -82,10 +130,12 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
             JSONArray list = json.getJSONArray("list");
 
             int index;
-            if (city.equals(PreferenceSingleton.getInstance().getHomeLocation(this))) {
+            if (PreferenceSingleton.getInstance().getHomeLocation(this).startsWith(city)) {
                 index = 0;
+                mHome = city;
             } else {
                 index = 1;
+                mWork = city;
             }
 
             for (int i = 0 ; i < list.length() && i < NB_MEASURES ; i++){
@@ -106,6 +156,7 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
                 }
                 String icon = current.getJSONArray("weather").getJSONObject(0).getString("icon");
                 mIcons[index * NB_MEASURES + i] = icon;
+                Log.d(TAG, "index: " + (index * NB_MEASURES + i));
                 Log.d(TAG, city + "@" + displayTime(dt) + " = " + minTemp + "°C, " + maxTemp + "°C, " + icon);
             }
             mHandler.post(new Runnable() {
@@ -120,7 +171,53 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
     }
 
     private void update() {
+        if (mIcons[0].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[0] + ".png", mImage00);
+        } else {
+            mImage00.setImageDrawable(null);
+        }
+        if (mIcons[1].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[1] + ".png", mImage01);
+        } else {
+            mImage01.setImageDrawable(null);
+        }
+        if (mIcons[2].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[2] + ".png", mImage02);
+        } else {
+            mImage02.setImageDrawable(null);
+        }
+        if (mIcons[3].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[3] + ".png", mImage03);
+        } else {
+            mImage03.setImageDrawable(null);
+        }
+        if (mIcons[4].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[4] + ".png", mImage10);
+        } else {
+            mImage10.setImageDrawable(null);
+        }
+        if (mIcons[5].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[5] + ".png", mImage11);
+        } else {
+            mImage11.setImageDrawable(null);
+        }
+        if (mIcons[6].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[6] + ".png", mImage12);
+        } else {
+            mImage12.setImageDrawable(null);
+        }
+        if (mIcons[7].length() > 0) {
+            mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[7] + ".png", mImage13);
+        } else {
+            mImage13.setImageDrawable(null);
+        }
 
+        mTempMinView.setText("Min\n" + mMinTemp + "°C");
+        mTempMaxView.setText("Max\n" + mMaxTemp + "°C");
+
+        mTimeView.setText("From " + displayTime(mStartTime) + " to " + displayTime(mStopTime));
+
+        mTitle.setText(mHome + " / " + mWork);
     }
 
     private String displayTime(int dt) {
