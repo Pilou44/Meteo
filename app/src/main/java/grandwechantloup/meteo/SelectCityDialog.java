@@ -69,6 +69,9 @@ public class SelectCityDialog implements SendWeatherRequestListener {
                     case R.id.action_work:
                         LocalPreferenceManager.setWorkLocation(mActivity, city);
                         break;
+                    case R.id.action_add_city:
+                        LocalPreferenceManager.addCity(mActivity, city);
+                        break;
                 }
                 mDialog.dismiss();
                 mActivity.refresh();

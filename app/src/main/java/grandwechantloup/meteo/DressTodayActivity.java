@@ -165,7 +165,7 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
                 String icon = current.getJSONArray("weather").getJSONObject(0).getString("icon");
                 mIcons[index * NB_MEASURES + i] = icon;
                 Log.d(TAG, "index: " + (index * NB_MEASURES + i));
-                Log.d(TAG, city + "@" + displayTime(dt) + " = " + minTemp + "°C, " + maxTemp + "°C, " + icon);
+                Log.d(TAG, city + "@" + WeatherAtTime.displayTime(dt) + " = " + minTemp + "°C, " + maxTemp + "°C, " + icon);
             }
             mHandler.post(new Runnable() {
                 @Override
@@ -223,33 +223,9 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
         mTempMinView.setText("Min\n" + mMinTemp + "°C");
         mTempMaxView.setText("Max\n" + mMaxTemp + "°C");
 
-        mTimeView.setText("From " + displayTime(mStartTime) + " to " + displayTime(mStopTime));
+        mTimeView.setText("From " + WeatherAtTime.displayTime(mStartTime) + " to " + WeatherAtTime.displayTime(mStopTime));
 
         mTitle.setText(mHome + " / " + mWork);
-    }
-
-    private String displayTime(int dt) {
-        Calendar cal = Calendar.getInstance();
-        TimeZone tz = cal.getTimeZone();
-
-        /* debug: is it local time? */
-        Log.d("Time zone: ", tz.getDisplayName());
-
-        /* date formatter in local timezone */
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
-        /* print your timestamp and double check it's the date you expect */
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String utcTime = sdf.format(new Date(((long)dt) * 1000));
-        Log.d("UTC Time: ", utcTime);
-
-
-        /* print your timestamp and double check it's the date you expect */
-        sdf.setTimeZone(tz);
-        String localTime = sdf.format(new Date(((long)dt) * 1000));
-        Log.d("Local Time: ", localTime);
-
-        return localTime;
     }
 
     @Override

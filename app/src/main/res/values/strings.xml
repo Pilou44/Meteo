@@ -16,4 +16,6 @@
     <string name="cancel">Cancel</string>
     <string name="city_not_found">City not found</string>
     <string name="are_you_looking_for">Are you looking for</string>
+    <string name="title_activity_weather_by_city">WeatherByCity</string>
+    <string name="action_add_city">Add a city</string>
 </resources>

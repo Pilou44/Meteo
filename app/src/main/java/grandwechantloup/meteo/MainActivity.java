@@ -197,6 +197,7 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
         Intent intent = null;
         switch (view.getId()) {
             case R.id.head:
+                intent = new Intent(this, WeatherByCityActivity.class);
                 break;
             case R.id.body:
                 intent = new Intent(this, DressTodayActivity.class);

@@ -15,6 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import grandwechantloup.meteo.R;
+import grandwechantloup.meteo.WeatherByCityActivity;
 
 public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> {
     public static final int FROM_LATLNG = 0;
@@ -24,12 +25,21 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
     public static final int FORECAST = 1;
 
     private static final String TAG = SendWeatherRequestTask.class.getSimpleName();
+    public static final String OPTION = "option";
     private final Context mContext;
     private final SendWeatherRequestListener mListener;
+    private String mOption;
 
     public SendWeatherRequestTask(@NonNull Context context, @NonNull SendWeatherRequestListener listener) {
         mContext = context;
         mListener = listener;
+        mOption = null;
+    }
+
+    public SendWeatherRequestTask(WeatherByCityActivity weatherByCityActivity,
+                                  WeatherByCityActivity weatherByCityActivity1, String option) {
+        this(weatherByCityActivity, weatherByCityActivity1);
+        mOption = option;
     }
 
     @Override
@@ -73,6 +83,10 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
 
             mainObject = new JSONObject(res);
             response.close();
+
+            if (mOption != null) {
+                mainObject.put(OPTION, mOption);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
