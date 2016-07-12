@@ -1,10 +1,7 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.elements;
 
 import java.util.ArrayList;
 
-/**
- * Created by gbeguin on 12/07/2016.
- */
 public class WeatherCity {
 
     private String                   mName;
@@ -50,8 +47,8 @@ public class WeatherCity {
         mIcons.add(wat);
     }
 
-    public void setIsCurrentPosition(boolean isCurrentPosition) {
-        mIsCurrentPosition = isCurrentPosition;
+    public void setIsCurrentPosition() {
+        mIsCurrentPosition = true;
     }
 
     public boolean isCurrentPosition() {

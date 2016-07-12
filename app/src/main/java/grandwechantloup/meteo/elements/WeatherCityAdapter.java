@@ -1,4 +1,4 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.elements;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +11,8 @@ import android.widget.TextView;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
-/**
- * Created by gbeguin on 12/07/2016.
- */
+import grandwechantloup.meteo.R;
+
 public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
 
     private final ImageLoader mImageLoader;
@@ -77,8 +76,8 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
             viewHolder.delete.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.tempMin.setText(element.getMinTemp() + "°C");
-        viewHolder.tempMax.setText(element.getMaxTemp() + "°C");
+        viewHolder.tempMin.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp_min), element.getMinTemp()));
+        viewHolder.tempMax.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp_max), element.getMaxTemp()));
 
         viewHolder.date0.setText(element.getWeatherAtTime(0).getTime("dd/MM @ HH:mm"));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(0).getIcon() + ".png", viewHolder.image0);

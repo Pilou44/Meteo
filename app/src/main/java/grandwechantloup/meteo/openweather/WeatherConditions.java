@@ -1,8 +1,5 @@
 package grandwechantloup.meteo.openweather;
 
-/**
- * Created by Administrateur on 10/07/16.
- */
 public class WeatherConditions {
 
     public static final String WEATHER_CONDITION_CLEAR        = "800";

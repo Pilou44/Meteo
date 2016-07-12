@@ -1,4 +1,4 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -6,11 +6,10 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -26,6 +25,7 @@ import org.json.JSONObject;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import grandwechantloup.meteo.R;
 import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
 import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
 import grandwechantloup.meteo.openweather.WeatherConditions;
@@ -42,15 +42,6 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         mBackgroundLayout = (ImageView) findViewById(R.id.background);
         Button head = (Button) findViewById(R.id.head);
@@ -126,6 +117,7 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
             double longitude;
 
             if (gpsTime > networkTime) {
+                //noinspection ConstantConditions
                 latitude = gpsLocation.getLatitude();
                 longitude = gpsLocation.getLongitude();
             } else {
@@ -178,7 +170,12 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(drawable.get()));
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                            mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(drawable.get(), null));
+                        } else {
+                            //noinspection deprecation
+                            mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(drawable.get()));
+                        }
                     }
                 });
             } else {

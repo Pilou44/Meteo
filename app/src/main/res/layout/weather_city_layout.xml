@@ -11,7 +11,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/delete"/>
+        android:layout_toLeftOf="@+id/delete"
+        android:layout_toStartOf="@+id/delete"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +20,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:src="@drawable/ic_cancel_24dp"/>
+        android:src="@drawable/ic_cancel_24dp"
+        android:contentDescription="@string/click_to_remove" />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,7 +50,8 @@
         android:layout_below="@+id/temp"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
-        android:id="@+id/icons">
+        android:id="@+id/icons"
+        android:baselineAligned="false">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

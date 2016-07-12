@@ -1,5 +1,6 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.elements;
 
+import android.annotation.SuppressLint;
 import android.util.Log;
 
 import java.text.SimpleDateFormat;
@@ -7,9 +8,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
 
-/**
- * Created by gbeguin on 12/07/2016.
- */
 public class WeatherAtTime {
     private static final String DEF_STYLE = "dd/MM/yyyy HH:mm:ss";
     private int mTime;
@@ -20,7 +18,7 @@ public class WeatherAtTime {
         mIcon = icon;
     }
 
-    public String getTime(String style) {
+    public String getTime(@SuppressWarnings("SameParameterValue") String style) {
         return displayTime(mTime, style);
     }
 
@@ -40,7 +38,7 @@ public class WeatherAtTime {
         Log.d("Time zone: ", tz.getDisplayName());
 
         /* date formatter in local timezone */
-        SimpleDateFormat sdf = new SimpleDateFormat(style);
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(style);
 
         /* print your timestamp and double check it's the date you expect */
         sdf.setTimeZone(TimeZone.getTimeZone("UTC"));

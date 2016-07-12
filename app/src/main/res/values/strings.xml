@@ -7,7 +7,7 @@
     <string name="app_name">Meteo</string>
     <string name="action_settings">Settings</string>
     <string name="background_description">Background</string>
-    <string name="title_activity_dress_today">DressTodayActivity</string>
+    <string name="title_activity_dress_today">How to dress today?</string>
     <string name="action_select_work">Select work location</string>
     <string name="action_select_home">Select home location</string>
     <string name="select_city_title">Enter a city name</string>
@@ -16,6 +16,15 @@
     <string name="cancel">Cancel</string>
     <string name="city_not_found">City not found</string>
     <string name="are_you_looking_for">Are you looking for</string>
-    <string name="title_activity_weather_by_city">WeatherByCity</string>
+    <string name="title_activity_weather_by_city">Weather in my cities</string>
     <string name="action_add_city">Add a city</string>
+    <string name="dress_temp_min">Min\n %1$.0f°C</string>
+    <string name="dress_temp_max">Max\n %1$.0f°C</string>
+    <string name="dress_date">From %1$s to %2$s</string>
+    <string name="dress_title">%1$s / %2$s</string>
+    <string name="city_temp_min">%1$.0f°C</string>
+    <string name="city_temp_max">%1$.0f°C</string>
+    <string name="default_home">Cergy,fr</string>
+    <string name="default_work">Paris,fr</string>
+    <string name="click_to_remove">Click to remove</string>
 </resources>

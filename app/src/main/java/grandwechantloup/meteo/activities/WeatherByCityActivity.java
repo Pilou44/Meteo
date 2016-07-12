@@ -1,29 +1,28 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.activities;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.TreeSet;
 
+import grandwechantloup.meteo.R;
+import grandwechantloup.meteo.elements.LocalPreferenceManager;
+import grandwechantloup.meteo.elements.SelectCityDialog;
+import grandwechantloup.meteo.elements.WeatherAtTime;
+import grandwechantloup.meteo.elements.WeatherCity;
+import grandwechantloup.meteo.elements.WeatherCityAdapter;
 import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
 import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
 
@@ -41,24 +40,14 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton)findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         ListView list = (ListView) findViewById(R.id.list);
         mAdapter = new WeatherCityAdapter(this);
         list.setAdapter(mAdapter);
     }
 
     @Override
-    protected void onPostResume() {
-        super.onPostResume();
+    protected void onResume() {
+        super.onResume();
         populate();
     }
 
@@ -86,6 +75,7 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressWarnings("ConstantConditions")
     private void populate() {
         mAdapter.clear();
 
@@ -93,7 +83,7 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
-            LocationManager locManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+            LocationManager locManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
             Location gpsLocation = locManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             long gpsTime = 0;
@@ -108,6 +98,7 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
             double longitude;
 
             if (gpsTime > networkTime) {
+                //noinspection ConstantConditions
                 latitude = gpsLocation.getLatitude();
                 longitude = gpsLocation.getLongitude();
             } else {
@@ -121,10 +112,9 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
 
         HashSet<String> cities = LocalPreferenceManager.getCities(this);
         Log.i(TAG, cities.size() + " cities found");
-        Iterator<String> it = cities.iterator();
-        while (it.hasNext()) {
+        for (String city : cities) {
             SendWeatherRequestTask task = new SendWeatherRequestTask(this, this);
-            task.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, it.next());
+            task.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, city);
         }
     }
 
@@ -164,7 +154,7 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
             city.setMaxTemp(maxTemp);
 
             if (option.equals(CURRENT)) {
-                city.setIsCurrentPosition(true);
+                city.setIsCurrentPosition();
                 mAdapter.insert(city, 0);
             } else {
                 mAdapter.add(city);

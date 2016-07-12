@@ -15,7 +15,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import grandwechantloup.meteo.R;
-import grandwechantloup.meteo.WeatherByCityActivity;
+import grandwechantloup.meteo.activities.WeatherByCityActivity;
 
 public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> {
     public static final int FROM_LATLNG = 0;
@@ -37,7 +37,7 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
     }
 
     public SendWeatherRequestTask(WeatherByCityActivity weatherByCityActivity,
-                                  WeatherByCityActivity weatherByCityActivity1, String option) {
+                                  WeatherByCityActivity weatherByCityActivity1, @SuppressWarnings("SameParameterValue") String option) {
         this(weatherByCityActivity, weatherByCityActivity1);
         mOption = option;
     }

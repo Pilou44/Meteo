@@ -1,14 +1,11 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.activities;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,11 +16,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.TimeZone;
-
+import grandwechantloup.meteo.R;
+import grandwechantloup.meteo.elements.LocalPreferenceManager;
+import grandwechantloup.meteo.elements.SelectCityDialog;
+import grandwechantloup.meteo.elements.WeatherAtTime;
 import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
 import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
 
@@ -61,16 +57,6 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
         setContentView(R.layout.activity_dress_today);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         mIcons = new String[NB_MEASURES *2];
         for (int i = 0 ; i < NB_MEASURES *2 ; i++){
@@ -220,12 +206,12 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
             mImage13.setImageDrawable(null);
         }
 
-        mTempMinView.setText("Min\n" + mMinTemp + "°C");
-        mTempMaxView.setText("Max\n" + mMaxTemp + "°C");
+        mTempMinView.setText(String.format(getResources().getConfiguration().locale, getResources().getString(R.string.dress_temp_min), mMinTemp));
+        mTempMaxView.setText(String.format(getResources().getConfiguration().locale, getResources().getString(R.string.dress_temp_max), mMaxTemp));
 
-        mTimeView.setText("From " + WeatherAtTime.displayTime(mStartTime) + " to " + WeatherAtTime.displayTime(mStopTime));
+        mTimeView.setText(String.format(getResources().getConfiguration().locale, getResources().getString(R.string.dress_date), WeatherAtTime.displayTime(mStartTime, "dd/MM HH:mm"), WeatherAtTime.displayTime(mStopTime, "dd/MM HH:mm")));
 
-        mTitle.setText(mHome + " / " + mWork);
+        mTitle.setText(String.format(getResources().getConfiguration().locale, getResources().getString(R.string.dress_title), mHome, mWork));
     }
 
     @Override

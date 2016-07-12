@@ -1,4 +1,4 @@
-package grandwechantloup.meteo;
+package grandwechantloup.meteo.elements;
 
 import android.app.AlertDialog;
 import android.util.Log;
@@ -10,12 +10,11 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import grandwechantloup.meteo.R;
+import grandwechantloup.meteo.activities.RefreshableActivity;
 import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
 import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
 
-/**
- * Created by Administrateur on 11/07/16.
- */
 public class SelectCityDialog implements SendWeatherRequestListener {
 
     private static final String TAG = SelectCityDialog.class.getSimpleName();
@@ -35,11 +34,11 @@ public class SelectCityDialog implements SendWeatherRequestListener {
         builder.setTitle(R.string.select_city_title);
 
         LayoutInflater inflater = mActivity.getLayoutInflater();
-        View dialoglayout = inflater.inflate(R.layout.select_city, null);
+        View dialogLayout = inflater.inflate(R.layout.select_city, null);
 
-        mCityEditText = (EditText) dialoglayout.findViewById(R.id.select_city_edit);
+        mCityEditText = (EditText) dialogLayout.findViewById(R.id.select_city_edit);
 
-        builder.setView(dialoglayout);
+        builder.setView(dialogLayout);
 
         builder.setPositiveButton(R.string.ok, null);
         builder.setNeutralButton(R.string.cancel, null);
