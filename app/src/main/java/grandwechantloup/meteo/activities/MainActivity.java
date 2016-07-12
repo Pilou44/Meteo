@@ -139,10 +139,6 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
             JSONArray weather = json.getJSONArray("weather");
             JSONObject object = weather.getJSONObject(0);
             String id = object.getString("id");
-            String main = object.getString("main");
-            String description = object.getString("description");
-            String icon = object.getString("icon");
-            Log.i(TAG, main + ", " + description + ", " + icon);
 
             if (id.startsWith(WeatherConditions.WEATHER_CONDITION_CLEAR)) {
                 drawable.set(R.drawable.clear_600);

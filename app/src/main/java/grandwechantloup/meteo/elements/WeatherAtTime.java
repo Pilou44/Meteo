@@ -10,6 +10,7 @@ import java.util.TimeZone;
 
 public class WeatherAtTime {
     private static final String DEF_STYLE = "dd/MM/yyyy HH:mm:ss";
+    private static final boolean DEBUG = false;
     private int mTime;
     private String mIcon;
 
@@ -34,22 +35,23 @@ public class WeatherAtTime {
         Calendar cal = Calendar.getInstance();
         TimeZone tz = cal.getTimeZone();
 
-        /* debug: is it local time? */
-        Log.d("Time zone: ", tz.getDisplayName());
+        if (DEBUG) {
+            Log.d("Time zone: ", tz.getDisplayName());
+        }
 
-        /* date formatter in local timezone */
         @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat(style);
 
-        /* print your timestamp and double check it's the date you expect */
-        sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
-        String utcTime = sdf.format(new Date(((long)dt) * 1000));
-        Log.d("UTC Time: ", utcTime);
+        if (DEBUG) {
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+            String utcTime = sdf.format(new Date(((long) dt) * 1000));
+            Log.d("UTC Time: ", utcTime);
+        }
 
-
-        /* print your timestamp and double check it's the date you expect */
         sdf.setTimeZone(tz);
         String localTime = sdf.format(new Date(((long)dt) * 1000));
-        Log.d("Local Time: ", localTime);
+        if (DEBUG) {
+            Log.d("Local Time: ", localTime);
+        }
 
         return localTime;
     }

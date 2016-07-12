@@ -25,6 +25,7 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
     public static final int FORECAST = 1;
 
     private static final String TAG = SendWeatherRequestTask.class.getSimpleName();
+    private static final boolean DEBUG = false;
     public static final String OPTION = "option";
     private final Context mContext;
     private final SendWeatherRequestListener mListener;
@@ -71,7 +72,9 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
             urlString += "&units=metric";
             urlString += "&appid=" + mContext.getString(R.string.openmap_key);
 
-            Log.i(TAG, "URL: " + urlString);
+            if (DEBUG) {
+                Log.i(TAG, "URL: " + urlString);
+            }
 
             URL url = new URL(urlString);
 
@@ -79,7 +82,9 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
             InputStream response = urlConnection.getInputStream();
             String res = readStream(response);
 
-            Log.i(TAG, "Response: " + res);
+            if (DEBUG) {
+                Log.i(TAG, "Response: " + res);
+            }
 
             mainObject = new JSONObject(res);
             response.close();
