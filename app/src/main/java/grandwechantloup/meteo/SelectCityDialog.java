@@ -1,13 +1,13 @@
 package grandwechantloup.meteo;
 
-import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
@@ -18,10 +18,13 @@ import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
  */
 public class SelectCityDialog implements SendWeatherRequestListener {
 
-    private final Activity mActivity;
+    private static final String TAG = SelectCityDialog.class.getSimpleName();
+    private final RefreshableActivity mActivity;
     private final int mId;
+    private EditText mCityEditText;
+    private AlertDialog mDialog;
 
-    public SelectCityDialog(Activity activity, int id) {
+    public SelectCityDialog(RefreshableActivity activity, int id) {
         mActivity = activity;
         mId = id;
     }
@@ -34,20 +37,20 @@ public class SelectCityDialog implements SendWeatherRequestListener {
         LayoutInflater inflater = mActivity.getLayoutInflater();
         View dialoglayout = inflater.inflate(R.layout.select_city, null);
 
-        final EditText cityEditText = (EditText) dialoglayout.findViewById(R.id.select_city_edit);
+        mCityEditText = (EditText) dialoglayout.findViewById(R.id.select_city_edit);
 
         builder.setView(dialoglayout);
 
         builder.setPositiveButton(R.string.ok, null);
         builder.setNeutralButton(R.string.cancel, null);
 
-        AlertDialog dialog = builder.show();
+        mDialog = builder.show();
 
-        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
+        mDialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SendWeatherRequestTask task = new SendWeatherRequestTask(mActivity, SelectCityDialog.this);
-                task.execute(SendWeatherRequestTask.CURRENT_WEATHER, SendWeatherRequestTask.FROM_CITY_NAME, cityEditText.getText().toString());
+                task.execute(SendWeatherRequestTask.CURRENT_WEATHER, SendWeatherRequestTask.FROM_CITY_NAME, mCityEditText.getText().toString());
             }
         });
     }
@@ -55,5 +58,29 @@ public class SelectCityDialog implements SendWeatherRequestListener {
     @Override
     public void onResult(JSONObject json) {
 
+        try {
+            String city = json.getString("name");
+            if (mCityEditText.getText().toString().startsWith(city)){
+                Log.i(TAG, "City " + mCityEditText.getText().toString() + " has been found");
+                switch (mId) {
+                    case R.id.action_home:
+                        LocalPreferenceManager.setHomeLocation(mActivity, city);
+                        break;
+                    case R.id.action_work:
+                        LocalPreferenceManager.setWorkLocation(mActivity, city);
+                        break;
+                }
+                mDialog.dismiss();
+                mActivity.refresh();
+            } else {
+                Log.i(TAG, "City " + mCityEditText.getText().toString() + " has not been found, replace by " + city + "?");
+                mCityEditText.setText(city);
+                mDialog.setTitle(R.string.are_you_looking_for);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+            Log.i(TAG, "City " + mCityEditText.getText().toString() + " has not been found");
+            Toast.makeText(mActivity, R.string.city_not_found, Toast.LENGTH_LONG).show();
+        }
     }
 }

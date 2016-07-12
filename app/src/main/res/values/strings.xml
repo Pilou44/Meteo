@@ -14,4 +14,6 @@
     <string name="city_name">City name</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="city_not_found">City not found</string>
+    <string name="are_you_looking_for">Are you looking for</string>
 </resources>

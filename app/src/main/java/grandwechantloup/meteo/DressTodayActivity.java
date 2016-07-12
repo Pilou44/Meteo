@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +27,7 @@ import java.util.TimeZone;
 import grandwechantloup.meteo.openweather.SendWeatherRequestListener;
 import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
 
-public class DressTodayActivity extends AppCompatActivity implements SendWeatherRequestListener {
+public class DressTodayActivity extends RefreshableActivity implements SendWeatherRequestListener {
 
     private static final String TAG = DressTodayActivity.class.getSimpleName();
 
@@ -104,24 +103,7 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
     @Override
     protected void onResume() {
         super.onResume();
-        String homeLocation = PreferenceSingleton.getInstance().getHomeLocation(this);
-        String workLocation = PreferenceSingleton.getInstance().getWorkLocation(this);
-
-        mIcons = new String[NB_MEASURES *2];
-        for (int i = 0 ; i < NB_MEASURES *2 ; i++){
-            mIcons[i] = "";
-        }
-
-        mMinTemp = Double.MAX_VALUE;
-        mMaxTemp = Double.MIN_VALUE;
-
-        mHome = "";
-        mWork = "";
-
-        SendWeatherRequestTask homeTask = new SendWeatherRequestTask(this, this);
-        homeTask.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, homeLocation);
-        SendWeatherRequestTask workTask = new SendWeatherRequestTask(this, this);
-        workTask.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, workLocation);
+        refresh();
     }
 
     @Override
@@ -156,7 +138,7 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
             JSONArray list = json.getJSONArray("list");
 
             int index;
-            if (PreferenceSingleton.getInstance().getHomeLocation(this).startsWith(city)) {
+            if (LocalPreferenceManager.getHomeLocation(this).startsWith(city)) {
                 index = 0;
                 mHome = city;
             } else {
@@ -268,5 +250,27 @@ public class DressTodayActivity extends AppCompatActivity implements SendWeather
         Log.d("Local Time: ", localTime);
 
         return localTime;
+    }
+
+    @Override
+    public void refresh() {
+        String homeLocation = LocalPreferenceManager.getHomeLocation(this);
+        String workLocation = LocalPreferenceManager.getWorkLocation(this);
+
+        mIcons = new String[NB_MEASURES *2];
+        for (int i = 0 ; i < NB_MEASURES *2 ; i++){
+            mIcons[i] = "";
+        }
+
+        mMinTemp = Double.MAX_VALUE;
+        mMaxTemp = Double.MIN_VALUE;
+
+        mHome = "";
+        mWork = "";
+
+        SendWeatherRequestTask homeTask = new SendWeatherRequestTask(this, this);
+        homeTask.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, homeLocation);
+        SendWeatherRequestTask workTask = new SendWeatherRequestTask(this, this);
+        workTask.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, workLocation);
     }
 }
