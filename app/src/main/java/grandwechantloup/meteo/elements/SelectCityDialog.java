@@ -2,7 +2,6 @@ package grandwechantloup.meteo.elements;
 
 import android.app.AlertDialog;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -59,7 +58,6 @@ public class SelectCityDialog implements SendWeatherRequestListener {
         try {
             String city = json.getString("name");
             if (mCityEditText.getText().toString().startsWith(city)){
-                Log.i(TAG, "City " + mCityEditText.getText().toString() + " has been found");
                 switch (mId) {
                     case R.id.action_home:
                         LocalPreferenceManager.setHomeLocation(mActivity, city);
@@ -74,13 +72,12 @@ public class SelectCityDialog implements SendWeatherRequestListener {
                 mDialog.dismiss();
                 mActivity.refresh();
             } else {
-                Log.i(TAG, "City " + mCityEditText.getText().toString() + " has not been found, replace by " + city + "?");
                 mCityEditText.setText(city);
                 mDialog.setTitle(R.string.are_you_looking_for);
             }
         } catch (JSONException e) {
+            Log.e(TAG, "City " + mCityEditText.getText().toString() + " has not been found");
             e.printStackTrace();
-            Log.i(TAG, "City " + mCityEditText.getText().toString() + " has not been found");
             Toast.makeText(mActivity, R.string.city_not_found, Toast.LENGTH_LONG).show();
         }
     }

@@ -9,7 +9,6 @@ import java.util.Date;
 import java.util.TimeZone;
 
 public class WeatherAtTime {
-    private static final String DEF_STYLE = "dd/MM/yyyy HH:mm:ss";
     private static final boolean DEBUG = false;
     private final double mMin;
     private final double mMax;
@@ -29,10 +28,6 @@ public class WeatherAtTime {
 
     public String getIcon() {
         return mIcon;
-    }
-
-    public static String displayTime(int dt) {
-        return displayTime(dt, DEF_STYLE);
     }
 
     public static String displayTime(int dt, String style) {

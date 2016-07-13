@@ -79,22 +79,22 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
         }
 
         viewHolder.date0.setText(element.getWeatherAtTime(0).getTime(mContext.getString(R.string.city_time_format)));
-        mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(0).getIcon() + ".png", viewHolder.image0);
+        mImageLoader.displayImage(String.format(mContext.getResources().getConfiguration().locale, mContext.getString(R.string.icons_url), element.getWeatherAtTime(0).getIcon()), viewHolder.image0);
         viewHolder.temp0.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(0).getTempMin(), element.getWeatherAtTime(0).getTempMax()));
         viewHolder.date1.setText(element.getWeatherAtTime(1).getTime(mContext.getString(R.string.city_time_format)));
-        mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(1).getIcon() + ".png", viewHolder.image1);
+        mImageLoader.displayImage(String.format(mContext.getResources().getConfiguration().locale, mContext.getString(R.string.icons_url), element.getWeatherAtTime(1).getIcon()), viewHolder.image1);
         viewHolder.temp1.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(1).getTempMin(), element.getWeatherAtTime(1).getTempMax()));
         viewHolder.date2.setText(element.getWeatherAtTime(2).getTime(mContext.getString(R.string.city_time_format)));
-        mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(2).getIcon() + ".png", viewHolder.image2);
+        mImageLoader.displayImage(String.format(mContext.getResources().getConfiguration().locale, mContext.getString(R.string.icons_url), element.getWeatherAtTime(2).getIcon()), viewHolder.image2);
         viewHolder.temp2.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(2).getTempMin(), element.getWeatherAtTime(2).getTempMax()));
         viewHolder.date3.setText(element.getWeatherAtTime(3).getTime(mContext.getString(R.string.city_time_format)));
-        mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(3).getIcon() + ".png", viewHolder.image3);
+        mImageLoader.displayImage(String.format(mContext.getResources().getConfiguration().locale, mContext.getString(R.string.icons_url), element.getWeatherAtTime(3).getIcon()), viewHolder.image3);
         viewHolder.temp3.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(3).getTempMin(), element.getWeatherAtTime(3).getTempMax()));
         viewHolder.date4.setText(element.getWeatherAtTime(4).getTime(mContext.getString(R.string.city_time_format)));
-        mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(4).getIcon() + ".png", viewHolder.image4);
+        mImageLoader.displayImage(String.format(mContext.getResources().getConfiguration().locale, mContext.getString(R.string.icons_url), element.getWeatherAtTime(4).getIcon()), viewHolder.image4);
         viewHolder.temp4.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(4).getTempMin(), element.getWeatherAtTime(4).getTempMax()));
         viewHolder.date5.setText(element.getWeatherAtTime(5).getTime(mContext.getString(R.string.city_time_format)));
-        mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(5).getIcon() + ".png", viewHolder.image5);
+        mImageLoader.displayImage(String.format(mContext.getResources().getConfiguration().locale, mContext.getString(R.string.icons_url), element.getWeatherAtTime(5).getIcon()), viewHolder.image5);
         viewHolder.temp5.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(5).getTempMin(), element.getWeatherAtTime(5).getTempMax()));
 
         return convertView;

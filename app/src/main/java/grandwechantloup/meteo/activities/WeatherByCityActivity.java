@@ -9,7 +9,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -31,8 +30,8 @@ import grandwechantloup.meteo.openweather.SendWeatherRequestTask;
 public class WeatherByCityActivity extends RefreshableActivity implements SendWeatherRequestListener {
 
     private static final int NB_MEASURES = 6;
-    private static final String TAG      = WeatherByCityActivity.class.getSimpleName();
     private static final String CURRENT  = "current";
+
     private WeatherCityAdapter mAdapter;
     private Dialog             mProgressDialog;
 
@@ -116,7 +115,6 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
         }
 
         HashSet<String> cities = LocalPreferenceManager.getCities(this);
-        Log.i(TAG, cities.size() + " cities found");
         for (String city : cities) {
             SendWeatherRequestTask task = new SendWeatherRequestTask(this, this);
             task.execute(SendWeatherRequestTask.FORECAST, SendWeatherRequestTask.FROM_CITY_NAME, city);
