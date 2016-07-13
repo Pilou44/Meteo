@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class WeatherCity {
 
-    private String                   mName;
-    private ArrayList<WeatherAtTime> mIcons;
-    private boolean                  mIsCurrentPosition;
+    private final String                   mName;
+    private final ArrayList<WeatherAtTime> mIcons;
+    private boolean mIsCurrentPosition;
 
     public WeatherCity(String name) {
         mName = name;

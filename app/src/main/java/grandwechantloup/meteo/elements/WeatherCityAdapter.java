@@ -35,7 +35,6 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.weather_city_layout, parent, false);
         }
 
-        //getItem(position) va récupérer l'item [position] de la List<Tweet> tweets
         final WeatherCity element = getItem(position);
 
         WeatherCityHolder viewHolder = (WeatherCityHolder) convertView.getTag();
@@ -71,7 +70,6 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
             convertView.setTag(viewHolder);
         }
 
-        //il ne reste plus qu'à remplir notre vue
         viewHolder.name.setText(element.getName());
 
         if (element.isCurrentPosition()) {

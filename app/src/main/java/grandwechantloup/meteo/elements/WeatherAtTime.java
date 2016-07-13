@@ -1,16 +1,11 @@
 package grandwechantloup.meteo.elements;
 
 import android.annotation.SuppressLint;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 public class WeatherAtTime {

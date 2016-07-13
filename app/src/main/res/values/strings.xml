@@ -26,4 +26,6 @@
     <string name="click_to_remove">Click to remove</string>
     <string name="city_temp">%1$.0f to %2$.0f°C</string>
     <string name="city_time_format">HH:mm</string>
+    <string name="min">Min.</string>
+    <string name="max">Max.</string>
 </resources>

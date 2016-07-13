@@ -33,8 +33,7 @@ public class SelectCityDialog implements SendWeatherRequestListener {
         final AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
         builder.setTitle(R.string.select_city_title);
 
-        LayoutInflater inflater = mActivity.getLayoutInflater();
-        View dialogLayout = inflater.inflate(R.layout.select_city, null);
+        View dialogLayout = View.inflate(mActivity, R.layout.select_city, null);
 
         mCityEditText = (EditText) dialogLayout.findViewById(R.id.select_city_edit);
 

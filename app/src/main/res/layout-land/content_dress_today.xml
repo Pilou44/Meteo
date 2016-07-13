@@ -14,7 +14,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home / Work"
         android:gravity="center"
         android:id="@+id/title"
         android:layout_alignParentTop="true"
@@ -23,7 +22,6 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="From - to -"
         android:gravity="center"
         android:id="@+id/time"
         android:layout_below="@+id/title"
@@ -32,7 +30,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/time">
+        android:layout_below="@+id/time"
+        android:baselineAligned="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -53,7 +52,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Min"
+                    android:text="@string/min"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -61,7 +60,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/temp_min"
-                    android:text="-°C"
                     android:gravity="center"
                     android:textSize="40sp"/>
 
@@ -79,7 +77,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Max"
+                    android:text="@string/max"
                     android:gravity="center"
                     android:textAppearance="?android:attr/textAppearanceMedium"/>
 
@@ -87,7 +85,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/temp_max"
-                    android:text="-°C"
                     android:gravity="center"
                     android:textSize="40sp"/>
 

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
+                xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/name"
-        android:text="Name"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/delete"
         android:layout_toStartOf="@+id/delete"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingLeft="@dimen/activity_horizontal_margin"/>
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        tools:ignore="RtlSymmetry"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -43,14 +44,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date0"
-                android:text="date &amp; time"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp0"
-                android:text="min &amp; max"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
@@ -69,14 +68,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date1"
-                android:text="date &amp; time"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp1"
-                android:text="min &amp; max"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
@@ -95,14 +92,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date2"
-                android:text="date &amp; time"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp2"
-                android:text="min &amp; max"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
@@ -121,14 +116,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date3"
-                android:text="date &amp; time"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp3"
-                android:text="min &amp; max"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
@@ -148,14 +141,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date4"
-                android:text="date &amp; time"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp4"
-                android:text="min &amp; max"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
@@ -175,14 +166,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/date5"
-                android:text="date &amp; time"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/temp5"
-                android:text="min &amp; max"
                 android:gravity="center"
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
