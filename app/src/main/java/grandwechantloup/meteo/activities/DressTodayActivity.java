@@ -1,5 +1,6 @@
 package grandwechantloup.meteo.activities;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.Toolbar;
@@ -50,6 +51,7 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
     private TextView mTitle;
     private String mWork;
     private String mHome;
+    private ProgressDialog mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -165,6 +167,10 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
     }
 
     private void update() {
+        if (mProgressDialog != null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
+        }
+
         if (mIcons[0].length() > 0) {
             mImageLoader.displayImage("http://openweathermap.org/img/w/" + mIcons[0] + ".png", mImage00);
         } else {
@@ -216,6 +222,8 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
 
     @Override
     public void refresh() {
+        mProgressDialog = ProgressDialog.show(this, getString(R.string.please_wait), getString(R.string.loading), true);
+
         String homeLocation = LocalPreferenceManager.getHomeLocation(this);
         String workLocation = LocalPreferenceManager.getWorkLocation(this);
 

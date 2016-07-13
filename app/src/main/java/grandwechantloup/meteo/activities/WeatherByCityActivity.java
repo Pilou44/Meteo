@@ -1,6 +1,8 @@
 package grandwechantloup.meteo.activities;
 
 import android.Manifest;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
@@ -32,6 +34,7 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
     private static final String TAG      = WeatherByCityActivity.class.getSimpleName();
     private static final String CURRENT  = "current";
     private WeatherCityAdapter mAdapter;
+    private Dialog             mProgressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +80,8 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
 
     @SuppressWarnings("ConstantConditions")
     private void populate() {
+        mProgressDialog = ProgressDialog.show(this, getString(R.string.please_wait), getString(R.string.loading), true);
+
         mAdapter.clear();
 
         //Add current location
@@ -120,6 +125,9 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
 
     @Override
     public void onResult(JSONObject json) {
+        if (mProgressDialog != null && mProgressDialog.isShowing()){
+            mProgressDialog.dismiss();
+        }
 
         try {
             WeatherCity city = new WeatherCity(json.getJSONObject("city").getString("name"));
