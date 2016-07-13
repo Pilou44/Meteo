@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">Météo</string>
+    <string name="background_description">Fond</string>
+    <string name="title_activity_dress_today">Comment s\'habiller aujourd\'hui ?</string>
+    <string name="action_select_work">Choisir le lieu de travail</string>
+    <string name="action_select_home">Choisir le lieu du domicile</string>
+    <string name="select_city_title">Entrer un nom de ville</string>
+    <string name="city_name">Nom de la ville</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Annuler</string>
+    <string name="city_not_found">Ville non trouvée</string>
+    <string name="are_you_looking_for">Cherchez-vous cette ville ?</string>
+    <string name="title_activity_weather_by_city">Météo dans mes villes</string>
+    <string name="action_add_city">Ajouter une ville</string>
+    <string name="display_temp">%1$.0f°C</string>
+    <string name="dress_date">De %1$s à %2$s</string>
+    <string name="dress_title">%1$s / %2$s</string>
+    <string name="default_home">Cergy,fr</string>
+    <string name="default_work">Paris,fr</string>
+    <string name="click_to_remove">Cliquez pour retirer</string>
+    <string name="city_temp">%1$.0f à %2$.0f°C</string>
+    <string name="city_time_format">HH:mm</string>
+    <string name="min">Min.</string>
+    <string name="max">Max.</string>
+    <string name="please_wait">Merci de patienter</string>
+    <string name="loading">Chargement…</string>
+    <string name="dress_time_format">dd/MM HH:mm</string>
+</resources>

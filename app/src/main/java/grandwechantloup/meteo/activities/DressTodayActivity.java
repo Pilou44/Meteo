@@ -173,7 +173,7 @@ public class DressTodayActivity extends RefreshableActivity implements SendWeath
         mTempMinView.setText(String.format(getResources().getConfiguration().locale, getString(R.string.display_temp), mMinTemp));
         mTempMaxView.setText(String.format(getResources().getConfiguration().locale, getString(R.string.display_temp), mMaxTemp));
 
-        mTimeView.setText(String.format(getResources().getConfiguration().locale, getString(R.string.dress_date), WeatherAtTime.displayTime(mStartTime, "dd/MM HH:mm"), WeatherAtTime.displayTime(mStopTime, "dd/MM HH:mm")));
+        mTimeView.setText(String.format(getResources().getConfiguration().locale, getString(R.string.dress_date), WeatherAtTime.displayTime(mStartTime, getString(R.string.dress_time_format)), WeatherAtTime.displayTime(mStopTime, getString(R.string.dress_time_format))));
 
         mTitle.setText(String.format(getResources().getConfiguration().locale, getString(R.string.dress_title), mHome, mWork));
     }

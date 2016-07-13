@@ -1,10 +1,4 @@
 <resources>
-    <string name="openmap_key" translatable="false">c124d1334d373e585a512bc6edf50f77</string>
-    <string name="openmap_base_url" translatable="false">http://api.openweathermap.org/data/2.5/</string>
-    <string name="openmap_current_weather" translatable="false">weather?</string>
-    <string name="openmap_forecast" translatable="false">forecast?</string>
-    <string name="icons_url" translatable="false">http://openweathermap.org/img/w/%1$s.png</string>
-
     <string name="app_name">Weather</string>
     <string name="background_description">Background</string>
     <string name="title_activity_dress_today">How to dress today?</string>
@@ -29,6 +23,6 @@
     <string name="min">Min.</string>
     <string name="max">Max.</string>
     <string name="please_wait">Please wait</string>
-    <string name="loading">Loading...</string>
-    <string name="dress_time_format">dd/MM HH:mm</string>
+    <string name="loading">Loading…</string>
+    <string name="dress_time_format">MM/dd HH:mm</string>
 </resources>
