@@ -5,8 +5,6 @@ import java.util.ArrayList;
 public class WeatherCity {
 
     private String                   mName;
-    private double                   mMinTemp;
-    private double                   mMaxTemp;
     private ArrayList<WeatherAtTime> mIcons;
     private boolean                  mIsCurrentPosition;
 
@@ -17,22 +15,6 @@ public class WeatherCity {
 
     public String getName() {
         return mName;
-    }
-
-    public double getMinTemp() {
-        return mMinTemp;
-    }
-
-    public void setMinTemp(double minTemp) {
-        this.mMinTemp = minTemp;
-    }
-
-    public double getMaxTemp() {
-        return mMaxTemp;
-    }
-
-    public void setMaxTemp(double maxTemp) {
-        this.mMaxTemp = maxTemp;
     }
 
     public WeatherAtTime getWeatherAtTime(int index) {

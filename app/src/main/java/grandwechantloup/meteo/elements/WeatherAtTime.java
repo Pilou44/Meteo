@@ -1,22 +1,31 @@
 package grandwechantloup.meteo.elements;
 
 import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
+import android.widget.ImageView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.NoSuchElementException;
 import java.util.TimeZone;
 
 public class WeatherAtTime {
     private static final String DEF_STYLE = "dd/MM/yyyy HH:mm:ss";
     private static final boolean DEBUG = false;
-    private int mTime;
-    private String mIcon;
+    private final double mMin;
+    private final double mMax;
+    private final int mTime;
+    private final String mIcon;
 
-    public WeatherAtTime(int time, String icon) {
+    public WeatherAtTime(int time, String icon, double min, double max) {
         mTime = time;
         mIcon = icon;
+        mMin = min;
+        mMax = max;
     }
 
     public String getTime(@SuppressWarnings("SameParameterValue") String style) {
@@ -56,5 +65,13 @@ public class WeatherAtTime {
         return localTime;
     }
 
+
+    public double getTempMin() {
+        return mMin;
+    }
+
+    public double getTempMax() {
+        return mMax;
+    }
 
 }

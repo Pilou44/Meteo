@@ -126,32 +126,20 @@ public class WeatherByCityActivity extends RefreshableActivity implements SendWe
 
             JSONArray list = json.getJSONArray("list");
 
-            double minTemp = Double.MAX_VALUE;
-            double maxTemp = Double.MIN_VALUE;
-            double temp;
-
             String option = json.optString(SendWeatherRequestTask.OPTION);
 
             for (int i = 0 ; i < list.length() && i < NB_MEASURES ; i++){
                 JSONObject current = list.getJSONObject(i);
 
-                temp = current.getJSONObject("main").getDouble("temp_min");
-                if (temp < minTemp) {
-                    minTemp = temp;
-                }
+                double min = current.getJSONObject("main").getDouble("temp_min");
 
-                temp = current.getJSONObject("main").getDouble("temp_max");
-                if (temp > maxTemp) {
-                    maxTemp = temp;
-                }
+                double max = current.getJSONObject("main").getDouble("temp_max");
 
                 int dt = current.getInt("dt");
                 String icon = current.getJSONArray("weather").getJSONObject(0).getString("icon");
-                WeatherAtTime wat = new WeatherAtTime(dt, icon);
+                WeatherAtTime wat = new WeatherAtTime(dt, icon, min, max);
                 city.addWeatherAtTime(wat);
             }
-            city.setMinTemp(minTemp);
-            city.setMaxTemp(maxTemp);
 
             if (option.equals(CURRENT)) {
                 city.setIsCurrentPosition();

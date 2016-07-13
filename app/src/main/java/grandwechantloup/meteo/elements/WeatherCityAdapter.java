@@ -50,8 +50,6 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
                     WeatherCityAdapter.this.remove(element);
                 }
             });
-            viewHolder.tempMin = (TextView) convertView.findViewById(R.id.min_temp);
-            viewHolder.tempMax = (TextView) convertView.findViewById(R.id.max_temp);
             viewHolder.date0 = (TextView) convertView.findViewById(R.id.date0);
             viewHolder.date1 = (TextView) convertView.findViewById(R.id.date1);
             viewHolder.date2 = (TextView) convertView.findViewById(R.id.date2);
@@ -64,6 +62,12 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
             viewHolder.image3 = (ImageView) convertView.findViewById(R.id.image3);
             viewHolder.image4 = (ImageView) convertView.findViewById(R.id.image4);
             viewHolder.image5 = (ImageView) convertView.findViewById(R.id.image5);
+            viewHolder.temp0 = (TextView) convertView.findViewById(R.id.temp0);
+            viewHolder.temp1 = (TextView) convertView.findViewById(R.id.temp1);
+            viewHolder.temp2 = (TextView) convertView.findViewById(R.id.temp2);
+            viewHolder.temp3 = (TextView) convertView.findViewById(R.id.temp3);
+            viewHolder.temp4 = (TextView) convertView.findViewById(R.id.temp4);
+            viewHolder.temp5 = (TextView) convertView.findViewById(R.id.temp5);
             convertView.setTag(viewHolder);
         }
 
@@ -76,21 +80,24 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
             viewHolder.delete.setVisibility(View.VISIBLE);
         }
 
-        viewHolder.tempMin.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp_min), element.getMinTemp()));
-        viewHolder.tempMax.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp_max), element.getMaxTemp()));
-
-        viewHolder.date0.setText(element.getWeatherAtTime(0).getTime("dd/MM @ HH:mm"));
+        viewHolder.date0.setText(element.getWeatherAtTime(0).getTime(mContext.getString(R.string.city_time_format)));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(0).getIcon() + ".png", viewHolder.image0);
-        viewHolder.date1.setText(element.getWeatherAtTime(1).getTime("dd/MM @ HH:mm"));
+        viewHolder.temp0.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(0).getTempMin(), element.getWeatherAtTime(0).getTempMax()));
+        viewHolder.date1.setText(element.getWeatherAtTime(1).getTime(mContext.getString(R.string.city_time_format)));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(1).getIcon() + ".png", viewHolder.image1);
-        viewHolder.date2.setText(element.getWeatherAtTime(2).getTime("dd/MM @ HH:mm"));
+        viewHolder.temp1.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(1).getTempMin(), element.getWeatherAtTime(1).getTempMax()));
+        viewHolder.date2.setText(element.getWeatherAtTime(2).getTime(mContext.getString(R.string.city_time_format)));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(2).getIcon() + ".png", viewHolder.image2);
-        viewHolder.date3.setText(element.getWeatherAtTime(3).getTime("dd/MM @ HH:mm"));
+        viewHolder.temp2.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(2).getTempMin(), element.getWeatherAtTime(2).getTempMax()));
+        viewHolder.date3.setText(element.getWeatherAtTime(3).getTime(mContext.getString(R.string.city_time_format)));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(3).getIcon() + ".png", viewHolder.image3);
-        viewHolder.date4.setText(element.getWeatherAtTime(4).getTime("dd/MM @ HH:mm"));
+        viewHolder.temp3.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(3).getTempMin(), element.getWeatherAtTime(3).getTempMax()));
+        viewHolder.date4.setText(element.getWeatherAtTime(4).getTime(mContext.getString(R.string.city_time_format)));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(4).getIcon() + ".png", viewHolder.image4);
-        viewHolder.date5.setText(element.getWeatherAtTime(5).getTime("dd/MM @ HH:mm"));
+        viewHolder.temp4.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(4).getTempMin(), element.getWeatherAtTime(4).getTempMax()));
+        viewHolder.date5.setText(element.getWeatherAtTime(5).getTime(mContext.getString(R.string.city_time_format)));
         mImageLoader.displayImage("http://openweathermap.org/img/w/" + element.getWeatherAtTime(5).getIcon() + ".png", viewHolder.image5);
+        viewHolder.temp5.setText(String.format(mContext.getResources().getConfiguration().locale, mContext.getResources().getString(R.string.city_temp), element.getWeatherAtTime(5).getTempMin(), element.getWeatherAtTime(5).getTempMax()));
 
         return convertView;
     }
@@ -98,8 +105,6 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
     private class WeatherCityHolder{
         public TextView  name;
         public ImageView delete;
-        public TextView  tempMin;
-        public TextView  tempMax;
         public TextView  date0;
         public TextView  date1;
         public TextView  date2;
@@ -112,5 +117,11 @@ public class WeatherCityAdapter extends ArrayAdapter<WeatherCity> {
         public ImageView image3;
         public ImageView image4;
         public ImageView image5;
+        public TextView  temp0;
+        public TextView  temp1;
+        public TextView  temp2;
+        public TextView  temp3;
+        public TextView  temp4;
+        public TextView  temp5;
     }
 }

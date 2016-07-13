@@ -14,7 +14,7 @@
         android:layout_toLeftOf="@+id/delete"
         android:layout_toStartOf="@+id/delete"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:paddingLeft="@dimen/activity_horizontal_margin"/>
+        android:paddingLeft="@dimen/activity_horizontal_margin" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -55,9 +55,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/image0"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/image0"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -81,9 +80,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/image1"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/image1"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -107,9 +105,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/image2"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/image2"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
@@ -133,17 +130,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/image3"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/image3"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="#22ffffff"
-            android:visibility="gone">
+            android:background="#22ffffff">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -160,17 +155,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/image4"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/image4"/>
         </LinearLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:background="#22000000"
-            android:visibility="gone">
+            android:background="#22000000">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -187,9 +180,8 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"/>
             <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/image5"
-                android:scaleType="fitCenter"/>
+                android:layout_height="wrap_content"
+                android:id="@+id/image5"/>
         </LinearLayout>
     </LinearLayout>
 
