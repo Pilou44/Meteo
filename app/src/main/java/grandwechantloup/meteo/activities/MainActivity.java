@@ -187,6 +187,7 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
                     } else {
                         //noinspection deprecation
                         mHead.setImageDrawable(MainActivity.this.getResources().getDrawable(head.get()));
+                        //noinspection deprecation
                         mBody.setImageDrawable(MainActivity.this.getResources().getDrawable(body.get()));
                     }
                 }
