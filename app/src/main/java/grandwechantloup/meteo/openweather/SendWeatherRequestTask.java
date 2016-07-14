@@ -1,6 +1,7 @@
 package grandwechantloup.meteo.openweather;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -65,7 +66,7 @@ public class SendWeatherRequestTask extends AsyncTask<Object, Void, JSONObject> 
                     urlString += "lat=" + params[2] + "&lon=" + params[3];
                     break;
                 case FROM_CITY_NAME:
-                    urlString += "q=" + params[2];
+                    urlString += "q=" + Uri.encode((String) params[2]);
                     break;
             }
 
