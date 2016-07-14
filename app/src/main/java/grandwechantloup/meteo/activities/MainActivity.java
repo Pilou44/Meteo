@@ -15,7 +15,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import org.json.JSONArray;
@@ -33,6 +32,8 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
     private static final String TAG = MainActivity.class.getSimpleName();
     private Handler mHandler;
     private ImageView mBackgroundLayout;
+    private ImageView mHead;
+    private ImageView mBody;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,11 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
         setSupportActionBar(toolbar);
 
         mBackgroundLayout = (ImageView) findViewById(R.id.background);
-        Button head = (Button) findViewById(R.id.head);
-        Button body = (Button) findViewById(R.id.body);
+        mHead = (ImageView) findViewById(R.id.head);
+        mBody = (ImageView) findViewById(R.id.body);
 
-        head.setOnClickListener(this);
-        body.setOnClickListener(this);
+        mHead.setOnClickListener(this);
+        mBody.setOnClickListener(this);
 
         mHandler = new Handler();
     }
@@ -111,43 +112,61 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
 
     @Override
     public void onResult(JSONObject json) {
-        final AtomicInteger drawable = new AtomicInteger(0);
+        final AtomicInteger background = new AtomicInteger(0);
+        final AtomicInteger head = new AtomicInteger(R.drawable.sun);
+        final AtomicInteger body = new AtomicInteger(R.drawable.jacket);
         try {
             JSONArray weather = json.getJSONArray("weather");
             JSONObject object = weather.getJSONObject(0);
             String id = object.getString("id");
 
             if (id.startsWith(WeatherConditions.WEATHER_CONDITION_CLEAR)) {
-                drawable.set(R.drawable.clear_600);
+                background.set(R.drawable.clear_600);
+                head.set(R.drawable.sun);
+                body.set(R.drawable.jacket);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_THUNDERSTORM)) {
-                drawable.set(R.drawable.thunderstorm_600);
+                background.set(R.drawable.thunderstorm_600);
+                head.set(R.drawable.lightning);
+                body.set(R.drawable.rain_coat);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_DRIZZLE)) {
-                drawable.set(R.drawable.drizzle_600);
+                background.set(R.drawable.drizzle_600);
+                head.set(R.drawable.dark_cloud);
+                body.set(R.drawable.rain_coat);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_RAIN)) {
-                drawable.set(R.drawable.rain_600);
+                background.set(R.drawable.rain_600);
+                head.set(R.drawable.rain);
+                body.set(R.drawable.rain_coat);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_SNOW)) {
-                drawable.set(R.drawable.snow_600);
+                background.set(R.drawable.snow_600);
+                head.set(R.drawable.snow);
+                body.set(R.drawable.snow_coat);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_ATMOSPHERE)) {
-                drawable.set(R.drawable.fog_600);
+                background.set(R.drawable.fog_600);
+                head.set(R.drawable.dark_cloud);
+                body.set(R.drawable.jacket);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_CLOUDS)) {
-                drawable.set(R.drawable.clouds_600);
+                background.set(R.drawable.clouds_600);
+                head.set(R.drawable.cloud);
+                body.set(R.drawable.jacket);
             } else if (id.startsWith(WeatherConditions.WEATHER_CONDITION_EXTREME)) {
-                drawable.set(R.drawable.extreme_600);
+                background.set(R.drawable.extreme_600);
+                head.set(R.drawable.lightning);
+                body.set(R.drawable.snow_coat);
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
         finally {
-            if (drawable.get() != 0) {
+            if (background.get() != 0) {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(drawable.get(), null));
+                            mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(background.get(), null));
                         } else {
                             //noinspection deprecation
-                            mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(drawable.get()));
+                            mBackgroundLayout.setImageDrawable(MainActivity.this.getResources().getDrawable(background.get()));
                         }
                     }
                 });
@@ -159,6 +178,19 @@ public class MainActivity extends AppCompatActivity implements SendWeatherReques
                     }
                 });
             }
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        mHead.setImageDrawable(MainActivity.this.getResources().getDrawable(head.get(), null));
+                        mBody.setImageDrawable(MainActivity.this.getResources().getDrawable(body.get(), null));
+                    } else {
+                        //noinspection deprecation
+                        mHead.setImageDrawable(MainActivity.this.getResources().getDrawable(head.get()));
+                        mBody.setImageDrawable(MainActivity.this.getResources().getDrawable(body.get()));
+                    }
+                }
+            });
         }
     }
 
